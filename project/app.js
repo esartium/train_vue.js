@@ -1,75 +1,26 @@
-const App = {
-    data() {
-        return {
-            myPlaceholder: 'внесите что-то в список',
-            title: 'Список:',
-            inputValue: '',
-            notes: ['note1','note2']
-        }
-    },
+Vue.createApp({
+     data: () => ({
+        title: 'тайтл',
+        myHtml: '<h1>заголовок</h1>',
+        person: {
+            firstName: 'chelik',
+            lastName: 'chelikov',
+            age: '500'
+        },
+        items: [1, 2, 3, 4, 5, 6]
+    }),
     methods: {
-
-        addNewNote () {
-            if (this.inputValue !== '') {
-            this.notes.push(this.inputValue)
-            this.inputValue = ''
-            }
-        },
-
-        deleteNote(idx, $event) {
-            this.notes.splice(idx, 1)
-        },
-
-        // inputKeyPress (event) {
-            // console.log(event.key)
-
-            // if (event.key == 'Enter') {
-            //     this.addNewNote()
-            // }
-        // }
+        // stopPropagation(event) {
+        //     event.stopPropagation()
         // },
-
-        toUpperCase (item) {
-            return item.toUpperCase()
-        },
-
-        multilpliedCount() {
-            console.log('multilpliedCount')
-            return this.notes.length * 100
+        addItem() {
+            this.items.unshift(this.$refs.myInput.value)
+            console.log(this.$refs.myInput.value)
         }
     },
     computed: {
-        multilpliedCountComputed() {
-            console.log('multilpliedCountComputed')
-            return this.notes.length * 200
-        }
-    },
-    watch: {
-        inputValue(value) {
-            if (value.length > 10) {
-                this.inputValue = 'не пиши сюда больше'
-            }
-            console.log('input value changed', value)
+        evenItems() {
+            return this.items.filter(i => i % 2 === 0)
         }
     }
-
-}
-
-// const app = Vue.createApp(App)
-// app.mount('#app')
-
-Vue.createApp(App).mount('#app')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}).mount('#app')
